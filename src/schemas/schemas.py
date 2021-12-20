@@ -5,31 +5,25 @@ class Usuario(BaseModel):
     id: Optional[str] = None
     nome: str
     telefone: str
-    meus_produtos: List[Produto]
-    minhas_vendas: List[Pedido]
-    meus_pedidos: List[Pedido]
+    # meus_produtos: List[Produto]
+    # minhas_vendas: List[Pedido]
+    # meus_pedidos: List[Pedido]
 
 class Produto(BaseModel):
     id: Optional[str] = None
-    usuario: Usuario
     nome: str
     detalhes: str
     preco: float
     disponivel: bool = False
 
-class Pedido(BaseModel):
-    id: Optional[str] = None
-    usuario: Usuario
-    produto: Produto
-    quantidade: int
-    entrega: bool = False
-    endereco: str
-    observacoes: Optional[str] = 'Sem observações'
+    class Config:
+        orm_mode = True
 
-# class Usuario(BaseModel):
+# class Pedido(BaseModel):
 #     id: Optional[str] = None
-#     nome: str
-#     telefone: str
-#     meus_produtos: List[Produto]
-#     minhas_vendas: List[Pedido]
-#     meus_pedidos: List[Pedido]
+#     usuario: Usuario
+#     # produto: Produto
+#     quantidade: int
+#     entrega: bool = False
+#     endereco: str
+#     observacoes: Optional[str] = 'Sem observações'

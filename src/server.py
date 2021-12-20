@@ -1,0 +1,19 @@
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import session
+from sqlalchemy.orm.session import Session
+from src.schemas.schemas import Produto
+from src.infra.sqlalchemy.repositorios.produtos import RepositorioProduto
+from src.infra.sqlalchemy.config.database import get_db, criar_bd
+
+criar_bd()
+
+app = FastAPI()
+
+@app.post('/produtos', response_model=Produto)
+def criar_produto(produto: Produto, db: Session = Depends(get_db)):
+    produto_criado = RepositorioProduto(db).criar(produto)
+    return produto_criado
+
+@app.get('/produtos')
+def listar_produtos():
+    return {'msg':'listando produtos'}
