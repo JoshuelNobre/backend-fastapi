@@ -3,7 +3,7 @@ from typing import List
 from sqlalchemy.orm import session
 from sqlalchemy.orm.session import Session
 from src.infra.sqlalchemy.repositorios.usuarios import RepositorioUsuario
-from src.schemas.schemas import Produto, Usuario, ProdutoSimples
+from src.schemas.schemas import Produto, Usuario, ProdutoSimples, UsuarioSimples
 from src.infra.sqlalchemy.repositorios.produtos import RepositorioProduto
 from src.infra.sqlalchemy.config.database import get_db, criar_bd
 
@@ -11,6 +11,7 @@ criar_bd()
 
 app = FastAPI()
 
+# Produtos
 @app.post('/produtos', response_model=ProdutoSimples, status_code=status.HTTP_201_CREATED)
 def criar_produto(produto: Produto, db: Session = Depends(get_db)):
     produto_criado = RepositorioProduto(db).criar(produto)
@@ -21,7 +22,19 @@ def listar_produtos(db: Session = Depends(get_db)):
     produtos = RepositorioProduto(db).listar()
     return produtos
 
-@app.post('/usuario', status_code=status.HTTP_201_CREATED)
+@app.put('/produto')
+def atualizar_produto(produto: Produto, db:Session = Depends(get_db)):
+    produto_atualizado = RepositorioProduto(db).editar(produto)
+    return produto_atualizado
+
+
+# Usuários
+@app.post('/usuarios', response_model=Usuario, status_code=status.HTTP_201_CREATED)
 def criar_usuario(usuario: Usuario, db:Session = Depends(get_db)):
     usuario_criado = RepositorioUsuario(db).criar(usuario)
     return usuario_criado
+
+@app.get('/usuarios', response_model=List[UsuarioSimples], status_code=status.HTTP_200_OK)
+def listar_usuarios(db:Session = Depends(get_db)):
+    usuarios = RepositorioUsuario(db).listar()
+    return usuarios

@@ -2,25 +2,38 @@ from pydantic import BaseModel
 from typing import Optional, List
 
 class Usuario(BaseModel):
-    id: Optional[str] = None
+    id: Optional[int] = None
     nome: str
+    senha: str
     telefone: str
-    # meus_produtos: List[Produto]
+    # produtos: List[Produto]
     # minhas_vendas: List[Pedido]
     # meus_pedidos: List[Pedido]
+    class Config:
+        orm_mode = True
+
+class UsuarioSimples(BaseModel):
+    id: Optional[int] = None
+    nome: str
+    telefone: str
+
+    class Config:
+        orm_mode = True
 
 class Produto(BaseModel):
-    id: Optional[str] = None
+    id: Optional[int] = None
     nome: str
     detalhes: str
     preco: float
     disponivel: bool = False
+    usuario_id: Optional[int]
+    usuario: Optional[UsuarioSimples]
 
     class Config:
         orm_mode = True
 
 class ProdutoSimples(BaseModel):
-    id: Optional[str] = None
+    id: Optional[int] = None
     nome: str
     preco: float
 

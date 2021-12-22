@@ -1,3 +1,4 @@
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 from src.schemas import schemas
 from src.infra.sqlalchemy.models import models
@@ -9,15 +10,15 @@ class RepositorioUsuario():
     
     def criar(self, usuario: schemas.Usuario):
         db_usuario = models.Usuario(**usuario.dict())
-    # def criar(self, produto: schemas.Produto):
-    #     db_produto = models.Usuario(nome=usuario.nome
-    #                                  telefone=usuario.telefone)
         self.db.add(db_usuario)
         self.db.commit()
         self.db.refresh(db_usuario)
         return db_usuario
 
     def listar(self):
+        # stmt = select(models.Usuario)
+        # usuarios = self.bd.execute(stmt).scalars().all()
+        # return usuarios
         usuarios = self.db.query(models.Usuario).all()
         return usuarios
 
