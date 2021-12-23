@@ -9,7 +9,9 @@ class RepositorioUsuario():
         self.db = db
     
     def criar(self, usuario: schemas.Usuario):
-        db_usuario = models.Usuario(**usuario.dict())
+        db_usuario = models.Usuario(nome = usuario.nome,
+                                    senha = usuario.senha,
+                                    telefone = usuario.telefone)
         self.db.add(db_usuario)
         self.db.commit()
         self.db.refresh(db_usuario)
