@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.expression import delete
+from sqlalchemy.sql.expression import delete, select
 from src.schemas import schemas
 from src.infra.sqlalchemy.models import models
 from sqlalchemy import update, delete   
@@ -26,6 +26,11 @@ class RepositorioProduto():
     def listar(self):
         produtos = self.db.query(models.Produto).all()
         return produtos
+
+    def buscarPorId(self, id: int):
+        consulta = select(models.Produto).where(models.Produto.id == id)
+        produto = self.db.execute(consulta).first()
+        return produto
 
     def editar(self, id:int, produto: schemas.Produto):
         updated_stmt = update(models.Produto).where(
