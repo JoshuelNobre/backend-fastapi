@@ -48,6 +48,3 @@ class RepositorioProduto():
         )
         self.db.execute(delete_stmt)
         self.db.commit()
-
-# schemas = vai e volta do request
-# models = vai e volta do banco de dados 

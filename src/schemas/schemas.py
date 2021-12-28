@@ -50,3 +50,7 @@ class Produto(BaseModel):
 #     entrega: bool = False
 #     endereco: str
 #     observacoes: Optional[str] = 'Sem observações'
+
+# schemas = vai e volta do request
+# models = vai e volta do banco de dados 
+# Rotas > Schemas > Models > Repositórios 
