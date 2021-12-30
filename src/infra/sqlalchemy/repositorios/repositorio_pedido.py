@@ -24,12 +24,21 @@ class RepositorioPedido():
         self.db.refresh(pedido_db)
         return pedido_db
 
-    def buscar_por_id(self):
-        pass
+    def buscar_por_id(self, id:int):
+        query = select(models.Pedido).where(models.Pedido.id == id)
+        resultado = self.db.execute(query).one()
+        return resultado[0]
 
     def listar_meus_pedidos_por_usuario_id(self, usuario_id:int):
-        pass
+        query = select(models.Pedido).where(models.Pedido.usuario_id == usuario_id)
+        resultado = self.db.execute(query).all()
+        return resultado
 
     def listar_minhas_vendas_por_usuario_id(self, usuario_id:int):
-        pass
+        query = select(models.Pedido)\
+            .join_from(models.Pedido, models.Produto)\
+            .where(models.Produto.usuario_id == usuario_id)
+        resultado = self.db.execute(query).all()
+        return resultado
+
 
