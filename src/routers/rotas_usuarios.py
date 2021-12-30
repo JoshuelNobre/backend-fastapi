@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi import FastAPI, Depends, status
 from typing import List
 from sqlalchemy.orm.session import Session
-from src.infra.sqlalchemy.repositorios.usuarios import RepositorioUsuario
+from src.infra.sqlalchemy.repositorios.repositorio_usuarios import RepositorioUsuario
 from src.schemas.schemas import Produto, Usuario, ProdutoSimples
 from src.infra.sqlalchemy.config.database import get_db
 

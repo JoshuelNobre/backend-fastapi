@@ -3,7 +3,7 @@ from fastapi import FastAPI, Depends, status, HTTPException
 from typing import List
 from sqlalchemy.orm.session import Session
 from src.schemas.schemas import Produto, Usuario, ProdutoSimples
-from src.infra.sqlalchemy.repositorios.produtos import RepositorioProduto
+from src.infra.sqlalchemy.repositorios.repositorio_produtos import RepositorioProduto
 from src.infra.sqlalchemy.config.database import get_db
 
 router = APIRouter()

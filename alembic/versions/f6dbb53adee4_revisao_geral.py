@@ -1,8 +1,8 @@
-"""Adicionando Pedido
+"""Revisao geral
 
-Revision ID: 3c3bd03f8fe6
+Revision ID: f6dbb53adee4
 Revises: 
-Create Date: 2021-12-28 16:02:25.894676
+Create Date: 2021-12-29 12:35:43.489152
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3c3bd03f8fe6'
+revision = 'f6dbb53adee4'
 down_revision = None
 branch_labels = None
 depends_on = None

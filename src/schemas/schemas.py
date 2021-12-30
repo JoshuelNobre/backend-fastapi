@@ -42,14 +42,23 @@ class Produto(BaseModel):
     class Config:
         orm_mode = True
 
-# class Pedido(BaseModel):
-#     id: Optional[str] = None
-#     usuario: Usuario
-#     # produto: Produto
-#     quantidade: int
-#     entrega: bool = False
-#     endereco: str
-#     observacoes: Optional[str] = 'Sem observações'
+class Pedido(BaseModel):
+    id: Optional[str] = None
+    quantidade: int
+    local_entrega: Optional[str]
+    tipo_entrega: str
+    observacao: Optional[str] = 'Sem observações'
+
+    usuario_id: Optional[int]
+    produto_id: Optional[int]
+
+    usuario: Optional[UsuarioSimples]
+    produto: Optional[ProdutoSimples]
+
+    class Config:
+        orm_mode = True
+
+
 
 # schemas = vai e volta do request
 # models = vai e volta do banco de dados 
