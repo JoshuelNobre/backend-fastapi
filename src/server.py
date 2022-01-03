@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from src.routers import rotas_pedidos, rotas_produtos, rotas_usuarios
 
+# RUN
 app = FastAPI()
 
 # CORS
