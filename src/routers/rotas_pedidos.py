@@ -22,12 +22,12 @@ def exibir_pedido(id: int, db: Session = Depends(get_db)):
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f'Não existe pedido com id = {id}')
 
-@router.get('/pedidos/{usuario_id}/compras')
+@router.get('/pedidos/{usuario_id}/compras', response_model=List[Pedido])
 def listar_pedido(usuario_id:int, db: Session = Depends(get_db)):
     pedidos = RepositorioPedido(db).listar_meus_pedidos_por_usuario_id(usuario_id)
     return pedidos  
 
-@router.get('/pedidos/{usuario_id}/vendas')
+@router.get('/pedidos/{usuario_id}/vendas', response_model=List[Pedido])
 def listar_vendas(usuario_id:int, db: Session = Depends(get_db)):
     pedidos = RepositorioPedido(db).listar_minhas_vendas_por_usuario_id(usuario_id)
     return pedidos  

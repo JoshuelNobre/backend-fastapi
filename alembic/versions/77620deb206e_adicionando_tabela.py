@@ -1,8 +1,8 @@
-"""Revisao geral
+"""Adicionando tabela
 
-Revision ID: f6dbb53adee4
+Revision ID: 77620deb206e
 Revises: 
-Create Date: 2021-12-29 12:35:43.489152
+Create Date: 2022-01-03 12:33:59.443981
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f6dbb53adee4'
+revision = '77620deb206e'
 down_revision = None
 branch_labels = None
 depends_on = None

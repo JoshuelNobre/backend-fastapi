@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from src.routers import rotas_pedidos, rotas_produtos, rotas_usuarios
+from src.routers import rotas_auth, rotas_pedidos, rotas_produtos
 
 # RUN
 app = FastAPI()
@@ -17,8 +17,8 @@ app.add_middleware(CORSMiddleware,
 # Rotas produtos
 app.include_router(rotas_produtos.router)
 
-# Rotas usuarios
-app.include_router(rotas_usuarios.router)
+# Rotas segurança: Autenticação e Autorização
+app.include_router(rotas_auth.router, prefix="/auth")
 
 # Rotas pedidos
 app.include_router(rotas_pedidos.router)

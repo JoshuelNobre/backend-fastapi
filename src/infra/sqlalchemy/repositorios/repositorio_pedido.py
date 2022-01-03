@@ -31,14 +31,14 @@ class RepositorioPedido():
 
     def listar_meus_pedidos_por_usuario_id(self, usuario_id:int):
         query = select(models.Pedido).where(models.Pedido.usuario_id == usuario_id)
-        resultado = self.db.execute(query).all()
+        resultado = self.db.execute(query).scalars().all()
         return resultado
 
     def listar_minhas_vendas_por_usuario_id(self, usuario_id:int):
         query = select(models.Pedido)\
             .join_from(models.Pedido, models.Produto)\
             .where(models.Produto.usuario_id == usuario_id)
-        resultado = self.db.execute(query).all()
+        resultado = self.db.execute(query).scalars().all()
         return resultado
 
 
