@@ -5,9 +5,10 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.sql.traversals import STATIC_CACHE_KEY
 from sqlalchemy.util.langhelpers import _hash_limit_string
 from src.infra.sqlalchemy.repositorios.repositorio_usuarios import RepositorioUsuario
-from src.schemas.schemas import Produto, Usuario, ProdutoSimples, LoginData, UsuarioSimples
+from src.schemas.schemas import LoginSucesso, Produto, Usuario, ProdutoSimples, LoginData, UsuarioSimples
 from src.infra.sqlalchemy.config.database import get_db
-from src.infra.providers import hash_provider
+from src.infra.providers import hash_provider, token_provider
+from src.routers.auth_utils import obter_usuario_logado
 
 router = APIRouter()
 
@@ -29,8 +30,8 @@ def signup(usuario: Usuario, db:Session = Depends(get_db)):
 #     usuarios = RepositorioUsuario(db).listar()
 #     return usuarios
 
-@router.post('/token')
-def login(login_data: LoginData, db:Session = Depends(get_db) ):
+@router.post('/token', response_model=LoginSucesso)
+def login(login_data: LoginData, db:Session = Depends(get_db)):
     senha = login_data.senha
     telefone = login_data.telefone
 
@@ -47,4 +48,9 @@ def login(login_data: LoginData, db:Session = Depends(get_db) ):
                             detail='Telefone ou senha estão incorretos')
     
     #Gerar token JWT
+    token = token_provider.criar_acess_token({'sub': usuario.telefone})
+    return LoginSucesso (usuario=usuario, acess_token=token)
+
+@router.get('/me', response_model=UsuarioSimples)
+def me(usuario: Usuario = Depends(obter_usuario_logado)):
     return usuario

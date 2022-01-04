@@ -37,6 +37,11 @@ class LoginData(BaseModel):
     class Config:
         orm_mode = True
 
+class LoginSucesso(BaseModel):
+    usuario: UsuarioSimples
+    acess_token: str
+
+
 class Produto(BaseModel):
     id: Optional[int] = None
     nome: str
